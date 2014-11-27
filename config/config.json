@@ -1,0 +1,14 @@
+{
+   "url": {
+		"host": "http://localhost",
+        "port": 7089,
+		"context" : "/stat"
+    },
+	"dataPublisher" : {
+		"host": "http://localhost",
+        "port": 6089
+    },
+	"pollingInterval": "2000",
+	"pushingInterval" : "3000",
+	"serverPort" : "8089"
+}

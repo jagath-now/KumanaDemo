@@ -1,0 +1,13 @@
+{
+  "name": "rest_server",
+  "description": "Water Project Application",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.9.3",
+    "express": "4.x",
+    "memory-cache": "0.0.5",
+    "nconf": "0.6.9",
+    "unirest": "0.3.0"
+  }
+}
