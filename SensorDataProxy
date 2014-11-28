@@ -1,0 +1,40 @@
+#!/usr/bin/python
+import serial
+import io
+import time,datetime
+from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+
+PORT_NUMBER = 7089
+
+#This class will handles any incoming request from
+#the browser and proxy the sensor data from the arduino
+class myHandler(BaseHTTPRequestHandler):
+	
+	#Handler for the GET requests
+	def do_GET(self):
+		self.send_response(200)
+		self.send_header('Content-type','text/html')
+		self.end_headers()
+		# Send the html message
+   	ser = serial.Serial('/dev/ttyACM0', 9600)
+	  output = ser.readline()
+		output = output.strip()
+    print output 
+		ts= time.time()
+    st=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+		self.wfile.write(output+st)
+    return
+
+try:
+	#Create a web server and define the handler to manage the
+	#incoming request
+	server = HTTPServer(('', PORT_NUMBER), myHandler)
+	print 'Started httpserver on port ' , PORT_NUMBER
+	
+	#Wait forever for incoming htto requests
+	server.serve_forever()
+
+except KeyboardInterrupt:
+	print '^C received, shutting down the web server'
+	server.socket.close()
+	
